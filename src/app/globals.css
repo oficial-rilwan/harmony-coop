@@ -1,0 +1,53 @@
+.body {
+  font-family: "Poppins", sans-serif !important;
+}
+input[type="checkbox"] {
+  accent-color: #070030;
+}
+.btn_primary {
+  background: #070030;
+  color: #ebebed;
+  border-radius: 40px;
+  padding: 12px 24px;
+  text-decoration: none;
+  border: none;
+}
+.logo {
+  text-decoration: none;
+}
+.fs-sm {
+  font-size: 14px;
+}
+.logo span {
+  color: #219dfc;
+}
+.nav-list {
+  list-style: none;
+}
+.nav-list .nav-list__item a {
+  text-decoration: none;
+}
+.nav-list .nav-list__item a:hover {
+  color: black !important;
+}
+.hero {
+  background: linear-gradient(to right, #243b8d 50%, transparent 50%),
+    url("https://images.pexels.com/photos/273250/pexels-photo-273250.jpeg?auto=compress&cs=tinysrgb&w=2000") right;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.footer {
+  background-color: #243b8d;
+}
+.footer-list {
+  list-style: none;
+}
+
+.sidebar-list {
+  list-style: none;
+}
+
+.__shadow {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}

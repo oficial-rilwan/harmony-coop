@@ -11,7 +11,7 @@ const Page = () => {
   if (!user) router.push("/account/signin");
 
   return (
-    <Layout>
+    <Layout title="Dashboard">
       <div className="">
         <div className="text-secondary">{moment().format("Do MMMM, YYYY")}</div>
         <div className="fw-semibold fs-4">Welcome back, {user?.firstName} 👋</div>

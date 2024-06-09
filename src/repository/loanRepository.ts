@@ -1,5 +1,6 @@
 import { toast } from "react-toastify";
 import UserRepository from "./userRepository";
+import RepaymentRepository, { RepaymentProps } from "./repaymentRepository";
 
 type LoanType = "Personal Loan" | "Auto Loan" | "Student Loan" | "Mortgage Loan";
 
@@ -13,6 +14,7 @@ export interface LoanProps {
   status: "";
   downPayment: number;
   createdAt: Date;
+  repayments: RepaymentProps[];
   breakdown: {
     [key: string]: number;
   };
@@ -27,11 +29,12 @@ class LoanRepository {
     data.userId = UserRepository.user?.id as string;
     data.amount = Number(data.amount);
     data.interestRate = Number(data.interestRate);
-    data.term = Number(String(data.term).replace(/\D/g, ""));
+    data.term = Number(data.term);
     data.downPayment = Number(data.downPayment);
     data.createdAt = new Date();
-    LoanRepository.collection.push(data);
-    LoanRepository.saveDateToStorage();
+    data.breakdown["balance"] = data.breakdown?.totalLoanAmount;
+    LoanRepository.collection.unshift(data);
+    LoanRepository.saveDataToStorage();
 
     return data;
   }
@@ -44,10 +47,10 @@ class LoanRepository {
     }
 
     LoanRepository.collection = LoanRepository.collection.map((item) => {
-      if (item.id === loanId) return { ...item, ...data };
+      if (item.id === loan.id) return data;
       return item;
     });
-    LoanRepository.saveDateToStorage();
+    LoanRepository.saveDataToStorage();
   }
 
   static findById(id: string) {
@@ -55,14 +58,17 @@ class LoanRepository {
   }
 
   static findOne(query: LoanProps) {
-    return LoanRepository.collection.find((item) => {
-      if (query.id) return item.id === query.id;
+    const loan = LoanRepository.collection.find((item) => {
+      return item.id === query.id;
     });
+
+    if (loan) loan.repayments = RepaymentRepository.getRepayments({ loanId: loan.id } as any);
+    return loan;
   }
 
   static find(query: LoanProps) {
     return LoanRepository.collection.filter((item) => {
-      if (query.id) return item.id === query.id;
+      return item.id === query.id;
     });
   }
 
@@ -80,7 +86,7 @@ class LoanRepository {
     return loans;
   }
 
-  static saveDateToStorage() {
+  static saveDataToStorage() {
     const loans = JSON.stringify(LoanRepository.collection);
     const data = JSON.stringify(localStorage.setItem("loans", loans));
     return data;

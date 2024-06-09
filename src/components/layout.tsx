@@ -6,6 +6,7 @@ import React from "react";
 import { IconType } from "react-icons";
 import { GrMoney } from "react-icons/gr";
 import { MdNotificationsNone, MdOutlineDashboard } from "react-icons/md";
+import { TbPigMoney } from "react-icons/tb";
 
 interface SidebarListItemProps {
   active: boolean;
@@ -14,7 +15,7 @@ interface SidebarListItemProps {
   link: string;
 }
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
+const Layout = ({ children, title }: { children: React.ReactNode; title: string }) => {
   const pathname = usePathname();
 
   return (
@@ -40,20 +41,29 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             Icon={GrMoney}
             link="/account/c/loans"
           />
+          <SidebarListItem
+            title="Repayments"
+            active={pathname.includes("/c/repayments")}
+            Icon={TbPigMoney}
+            link="/account/c/repayments"
+          />
         </ul>
       </div>
       <div className="w-100" style={{ height: "100vh", overflowY: "auto" }}>
-        <div className="d-flex justify-content-end align-items-center border bottom p-3">
-          <div className="me-4">
-            <MdNotificationsNone size={26} />
-          </div>
-          <div>
-            <div
-              style={{ width: 40, height: 40, background: "purple" }}
-              className="border fs-5 fw-medium d-flex align-items-center justify-content-center text-white rounded-pill"
-            >
-              {UserRepository.user?.firstName.charAt(0)}
-              {UserRepository.user?.lastName.charAt(0)}
+        <div className="d-flex justify-content-between align-items-center border bottom p-3">
+          <div className="fw-semibold fs-3">{title}</div>
+          <div className="d-flex align-items-center">
+            <div className="me-4">
+              <MdNotificationsNone size={26} />
+            </div>
+            <div>
+              <div
+                style={{ width: 40, height: 40, background: "purple" }}
+                className="border fs-5 fw-medium d-flex align-items-center justify-content-center text-white rounded-pill"
+              >
+                {UserRepository.user?.firstName.charAt(0)}
+                {UserRepository.user?.lastName.charAt(0)}
+              </div>
             </div>
           </div>
         </div>

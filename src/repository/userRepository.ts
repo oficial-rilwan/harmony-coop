@@ -97,8 +97,10 @@ class UserRepository {
   }
   static getUser() {
     let user = null as UserProps | null;
-    let result = window?.localStorage?.getItem("user");
-    if (result) user = JSON.parse(result);
+    if (typeof window !== "undefined") {
+      let result = window?.localStorage?.getItem("user");
+      if (result) user = JSON.parse(result);
+    }
     return user;
   }
 

@@ -32,7 +32,7 @@ input[type="checkbox"] {
 }
 .hero {
   background: linear-gradient(to right, #243b8d 50%, transparent 50%),
-    url("https://images.pexels.com/photos/273250/pexels-photo-273250.jpeg?auto=compress&cs=tinysrgb&w=2000") right;
+    url("../../public/assets/pexels-photo-273250.webp") right;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

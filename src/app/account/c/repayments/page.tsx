@@ -6,7 +6,7 @@ import RepaymentRepository, { RepaymentProps } from "@/repository/repaymentRepos
 import UserRepository from "@/repository/userRepository";
 import moment from "moment";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import React from "react";
+import React, { Suspense } from "react";
 
 const user = UserRepository.user;
 
@@ -29,85 +29,87 @@ const Page = () => {
   if (!user) return router.push("/account/signin");
 
   return (
-    <Layout title="Repayments">
-      <div className="p-4">
-        <div className="p-4 bg-light mb-4">
-          <div className="row">
-            <div className="col-12 col-md-3 mb-3">
-              <label className="form-label">Loan Type:</label>
-              <select
-                required
-                className="form-select"
-                value={type}
-                onChange={(e) => handleChange("type", e.target.value)}
-              >
-                <option disabled value="">
-                  Loan Type
-                </option>
-                {loanTypes().map((item) => (
-                  <option value={item} key={item}>
-                    {item}
+    <Suspense>
+      <Layout title="Repayments">
+        <div className="p-4">
+          <div className="p-4 bg-light mb-4">
+            <div className="row">
+              <div className="col-12 col-md-3 mb-3">
+                <label className="form-label">Loan Type:</label>
+                <select
+                  required
+                  className="form-select"
+                  value={type}
+                  onChange={(e) => handleChange("type", e.target.value)}
+                >
+                  <option disabled value="">
+                    Loan Type
                   </option>
-                ))}
-              </select>{" "}
-            </div>
-            <div className="col-12 col-md-3 mb-3">
-              <label className="form-label">From:</label>
+                  {loanTypes().map((item) => (
+                    <option value={item} key={item}>
+                      {item}
+                    </option>
+                  ))}
+                </select>{" "}
+              </div>
+              <div className="col-12 col-md-3 mb-3">
+                <label className="form-label">From:</label>
 
-              <input
-                className="form-control"
-                type="date"
-                value={dateFrom}
-                onChange={(e) => handleChange("dateFrom", e.target.value)}
-              />
-            </div>
-            <div className="col-12 col-md-3 mb-3">
-              <label className="form-label">To:</label>
+                <input
+                  className="form-control"
+                  type="date"
+                  value={dateFrom}
+                  onChange={(e) => handleChange("dateFrom", e.target.value)}
+                />
+              </div>
+              <div className="col-12 col-md-3 mb-3">
+                <label className="form-label">To:</label>
 
-              <input
-                type="date"
-                className="form-control"
-                value={dateTo}
-                onChange={(e) => handleChange("dateTo", e.target.value)}
-              />
+                <input
+                  type="date"
+                  className="form-control"
+                  value={dateTo}
+                  onChange={(e) => handleChange("dateTo", e.target.value)}
+                />
+              </div>
             </div>
           </div>
-        </div>
-        <div className="border p-3 mb-5">
-          <table className="table">
-            <thead>
-              <tr>
-                <th scope="col" className="fw-semibold">
-                  # Loan ID
-                </th>
-                <th scope="col" className="fw-semibold">
-                  Loan Type
-                </th>
-                <th scope="col" className="fw-semibold">
-                  Repayment Date
-                </th>
-                <th scope="col" className="fw-semibold">
-                  Amount
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {repayments.map((item) => (
-                <tr key={item.id} className="cursor-pointer">
-                  <th scope="row" className="fw-semibold">
-                    {item.id}
+          <div className="border p-3 mb-5">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th scope="col" className="fw-semibold">
+                    # Loan ID
                   </th>
-                  <td>{item?.loan?.loanType}</td>
-                  <td className="text-nowrap">{moment(item.createdAt).format("Do MMMM, YYYY")}</td>
-                  <td>{currencyFormat(item.amount)}</td>
+                  <th scope="col" className="fw-semibold">
+                    Loan Type
+                  </th>
+                  <th scope="col" className="fw-semibold">
+                    Repayment Date
+                  </th>
+                  <th scope="col" className="fw-semibold">
+                    Amount
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-          <EmptyState show={!repayments.length} />
+              </thead>
+              <tbody>
+                {repayments.map((item) => (
+                  <tr key={item.id} className="cursor-pointer">
+                    <th scope="row" className="fw-semibold">
+                      {item.id}
+                    </th>
+                    <td>{item?.loan?.loanType}</td>
+                    <td className="text-nowrap">{moment(item.createdAt).format("Do MMMM, YYYY")}</td>
+                    <td>{currencyFormat(item.amount)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <EmptyState show={!repayments.length} />
+          </div>
         </div>
-      </div>
-    </Layout>
+      </Layout>
+    </Suspense>
   );
 
   function handleChange(name: string, value: any) {

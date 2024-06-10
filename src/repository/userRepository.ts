@@ -1,4 +1,3 @@
-"use client";
 import { toast } from "react-toastify";
 
 export interface UserProps {
@@ -106,8 +105,10 @@ class UserRepository {
 
   static getDataFromStorage() {
     let users = [] as UserProps[];
-    let result = window?.localStorage?.getItem("users");
-    if (result) users = JSON.parse(result);
+    if (typeof window !== "undefined") {
+      let result = window?.localStorage?.getItem("users");
+      if (result) users = JSON.parse(result);
+    }
     return users;
   }
 

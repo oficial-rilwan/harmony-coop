@@ -72,7 +72,17 @@ const Layout = ({ children, title }: { children: React.ReactNode; title: string 
               <div className="me-4">
                 <MdNotificationsNone size={26} />
               </div>
-              <div>
+              <div className="d-none d-md-block">
+                <div
+                  role="button"
+                  style={{ width: 40, height: 40, background: "purple" }}
+                  className="border fs-5 fw-medium d-flex align-items-center justify-content-center text-white rounded-pill"
+                >
+                  {UserRepository.user?.firstName.charAt(0)}
+                  {UserRepository.user?.lastName.charAt(0)}
+                </div>
+              </div>
+              <div className="d-block d-md-none">
                 <div
                   role="button"
                   onClick={() => setIsOpen(true)}

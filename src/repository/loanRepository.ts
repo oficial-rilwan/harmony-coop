@@ -115,14 +115,19 @@ class LoanRepository {
 
   static getDataFromStorage() {
     let loans = [] as LoanProps[];
-    let result = window?.localStorage?.getItem("loans");
-    if (result) loans = JSON.parse(result);
+    if (typeof window !== "undefined") {
+      let result = window?.localStorage?.getItem("loans");
+      if (result) loans = JSON.parse(result);
+    }
     return loans;
   }
 
   static saveDataToStorage() {
+    let data = "";
     const loans = JSON.stringify(LoanRepository.collection);
-    const data = JSON.stringify(localStorage.setItem("loans", loans));
+    if (typeof window !== "undefined") {
+      data = JSON.stringify(localStorage.setItem("loans", loans));
+    }
     return data;
   }
 

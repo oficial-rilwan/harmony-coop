@@ -113,8 +113,10 @@ class RepaymentRepository {
 
   static getDataFromStorage() {
     let repayments = [] as RepaymentProps[];
-    let result = window?.localStorage?.getItem("repayments");
-    if (result) repayments = JSON.parse(result);
+    if (typeof window !== "undefined") {
+      let result = window?.localStorage?.getItem("repayments");
+      if (result) repayments = JSON.parse(result);
+    }
     return repayments;
   }
 

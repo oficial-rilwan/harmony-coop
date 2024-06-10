@@ -11,7 +11,7 @@ import { Pie } from "react-chartjs-2";
 import Link from "next/link";
 import { calculateLoanDetails, currencyFormat, interestRates, loanTypes } from "@/utils";
 import UserRepository from "@/repository/userRepository";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import EmptyState from "@/components/empty-state";
 
 Chart.register(CategoryScale);
@@ -30,6 +30,7 @@ const user = UserRepository.user;
 
 const Page = () => {
   const router = useRouter();
+  const pathname = usePathname();
   const loansSectionRef: any = React.useRef();
   const [values, setValues] = React.useState(initialValues);
   const [loans, setLoans] = React.useState<LoanProps[]>([]);
@@ -214,7 +215,7 @@ const Page = () => {
 
                   <td>{item.interestRate}%</td>
                   <td>
-                    <Link href={window.location.pathname + "/" + item.id} className="fw-semibold text-primary">
+                    <Link href={pathname + "/" + item.id} className="fw-semibold text-primary">
                       View
                     </Link>
                   </td>

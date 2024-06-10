@@ -106,8 +106,10 @@ const Page = () => {
     const result = UserRepository.signup(rest as UserProps);
 
     if (!result) return;
-    window?.localStorage.setItem("user", JSON.stringify(result));
-    window.location.replace("/account/c/dashboard");
+    if (typeof window !== "undefined") {
+      window?.localStorage.setItem("user", JSON.stringify(result));
+      window.location.replace("/account/c/dashboard");
+    }
   }
 
   function handleChange(name: string, value: any) {

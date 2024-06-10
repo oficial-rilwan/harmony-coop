@@ -5,13 +5,14 @@ import Layout from "@/components/layout";
 import RepaymentRepository, { RepaymentProps } from "@/repository/repaymentRepository";
 import UserRepository from "@/repository/userRepository";
 import moment from "moment";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 
 const user = UserRepository.user;
 
 const Page = () => {
   const router = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
   const type = searchParams.get("type") || "";
   const dateTo = searchParams.get("dateTo") || "";
@@ -115,7 +116,7 @@ const Page = () => {
     const params = new URLSearchParams(searchParams);
     params.set(name, value);
     params.toString();
-    router.replace(window.location.pathname + "?" + params);
+    router.replace(pathname + "?" + params);
   }
 
   function loanTypes() {

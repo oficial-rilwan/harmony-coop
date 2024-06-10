@@ -8,12 +8,22 @@ import React from "react";
 import RecordPayment from "./components/record-payment";
 import RepaymentRepository, { RepaymentProps } from "@/repository/repaymentRepository";
 import EmptyState from "@/components/empty-state";
+import UserRepository from "@/repository/userRepository";
+import { useRouter } from "next/navigation";
+
+const user = UserRepository.user;
 
 const Page = ({ params }: { params: { id: string } }) => {
+  const router = useRouter();
   const [refetch, setRefetch] = React.useState(false);
   const [isOpen, setIsOpen] = React.useState(false);
   const [loan, setLoan] = React.useState<LoanProps | null>(null);
   const [repayments, setRepayments] = React.useState<RepaymentProps[]>([]);
+
+  React.useEffect(() => {
+    if (!user) return router.push("/account/signin");
+    //eslint-disable-next-line
+  }, [user]);
 
   React.useEffect(() => {
     const _loan = LoanRepository.findById(params.id);

@@ -10,9 +10,12 @@ const user = UserRepository.user;
 const Page = () => {
   const router = useRouter();
 
-  if (!user) return router.push("/account/signin");
+  React.useEffect(() => {
+    if (!user) return router.push("/account/signin");
+    //eslint-disable-next-line
+  }, [user]);
   return (
-    <Suspense>
+    <Suspense fallback={<div>Loading...</div>}>
       <Repayments />
     </Suspense>
   );

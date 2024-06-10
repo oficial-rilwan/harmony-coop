@@ -42,6 +42,7 @@ const Page = () => {
   });
 
   React.useEffect(() => {
+    if (!user) return router.push("/account/signin");
     const _stats = LoanRepository.stats();
     const _monthlyStats = LoanRepository.monthlyStats();
     const _repaymentMonthlyStats = RepaymentRepository.monthlyStats();
@@ -52,9 +53,9 @@ const Page = () => {
     setRepayments(_repayments);
     setMonthlyStats(_monthlyStats);
     setRepaymentMonthlyStats(_repaymentMonthlyStats);
-  }, []);
 
-  if (!user) return router.push("/account/signin");
+    //eslint-disable-next-line
+  }, [user]);
 
   const chartData = {
     labels: repaymentMonthlyStats.map((item) => item.month),
@@ -91,7 +92,7 @@ const Page = () => {
                   <GiReceiveMoney size={30} />
                 </div>
               </div>
-              <div className="fw-semibold fs-4">{stats.loanApplications}</div>
+              <div className="fw-semibold fs-4 text-nowrap">{stats.loanApplications}</div>
             </div>
           </div>
           <div className="col">
@@ -102,7 +103,7 @@ const Page = () => {
                   <GiPayMoney size={30} />
                 </div>
               </div>
-              <div className="fw-semibold fs-4">{currencyFormat(stats.repayments)}</div>
+              <div className="fw-semibold fs-4 text-nowrap">{currencyFormat(stats.repayments)}</div>
             </div>
           </div>
           <div className="col">
@@ -113,12 +114,12 @@ const Page = () => {
                   <FaMoneyBill size={30} />
                 </div>
               </div>
-              <div className="fw-semibold fs-4">{currencyFormat(stats.balance)}</div>
+              <div className="fw-semibold fs-4 text-nowrap">{currencyFormat(stats.balance)}</div>
             </div>
           </div>
         </div>
         <div className="row mb-4">
-          <div className="col-12 col-md-7">
+          <div className="col-12 col-md-7 mb-3">
             <div className="border rounded p-3 h-100">
               <div className="fw-medium text-secondary mb-3">Repayments</div>
               <div className="overflow-auto">
@@ -126,7 +127,7 @@ const Page = () => {
               </div>
             </div>
           </div>
-          <div className="col-12 col-md-5">
+          <div className="col-12 col-md-5 mb-3">
             <div className="border rounded overflow-hidden h-100">
               <EmptyState show={!repayments.length} />
               <div className="h-100">
@@ -152,7 +153,7 @@ const Page = () => {
           </div>
         </div>
         <div className="row mb-4">
-          <div className="col-12 col-md-5">
+          <div className="col-12 col-md-5 mb-3">
             <div className="border rounded overflow-hidden h-100">
               <EmptyState show={!loans.length} />
               <div className="h-100">
@@ -176,7 +177,7 @@ const Page = () => {
               </div>
             </div>
           </div>
-          <div className="col-12 col-md-7">
+          <div className="col-12 col-md-7 mb-3">
             <div className="border rounded p-3 h-100">
               <div className="fw-medium text-secondary mb-3">Loans</div>
               <div className="overflow-auto">

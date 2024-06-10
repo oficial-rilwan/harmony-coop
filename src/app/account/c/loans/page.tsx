@@ -42,7 +42,10 @@ const Page = () => {
     setLoans(_loans);
   }, [refetch]);
 
-  if (!user) return router.push("/account/signin");
+  React.useEffect(() => {
+    if (!user) return router.push("/account/signin");
+    //eslint-disable-next-line
+  }, [user]);
 
   const chartData = {
     labels: ["Principal", "Interest"],

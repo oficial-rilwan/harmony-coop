@@ -12,7 +12,7 @@ const Page = () => {
 
   return (
     <div style={{ minHeight: "100vh" }} className="d-flex justify-content-center align-items-center py-5">
-      <div className="w-100" style={{ maxWidth: 600 }}>
+      <div className="w-100 p-4" style={{ maxWidth: 600 }}>
         <div className="d-flex flex-column align-items-center mb-5">
           <Link href="#" className="logo display-4 mb-5 d-block fw-semibold text-dark">
             Harmony<span>coop</span>

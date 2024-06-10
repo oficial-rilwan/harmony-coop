@@ -16,7 +16,7 @@ import EmptyState from "@/components/empty-state";
 
 Chart.register(CategoryScale);
 
-type LoanType = "Personal Loan" | "Auto Loan" | "Student Loan" | "Mortgage Loan";
+export type LoanType = "Personal Loan" | "Auto Loan" | "Student Loan" | "Mortgage Loan";
 
 const initialValues = {
   loanType: "Personal Loan" as LoanType,
@@ -180,7 +180,7 @@ const Page = () => {
           Loans
         </div>
         <a href="#loans" ref={loansSectionRef} className="d-none" />
-        <div className="border p-3 mb-5">
+        <div className="border p-3 mb-5 overflow-auto">
           <table className="table">
             <thead>
               <tr>

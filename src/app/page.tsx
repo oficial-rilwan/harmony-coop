@@ -1,3 +1,5 @@
+"use client";
+
 import NavBar from "@/components/nav-bar";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,7 +14,7 @@ export default function Home() {
           <div className="container-xl">
             <div className="py-5">
               <div className="row py-5">
-                <div className="col-6">
+                <div className="col-12 col-lg-6">
                   <div style={{ fontSize: "14px" }} className="mb-2 text-white fw-medium">
                     WELCOME TO HARMONY COOPERATIVE
                   </div>
@@ -25,13 +27,13 @@ export default function Home() {
                     </Link>
                   </div>
                 </div>
-                <div className="col-6"></div>
+                <div className="d-none d-lg-block col-lg-6"></div>
               </div>
             </div>
           </div>
           <div className="container-xl border d-none" style={{ background: "#666666" }}>
             <div className="row">
-              <div className="col-6">
+              <div className="col-12 col-md-6">
                 <div className="p-4">
                   <div className="fw-semibold fs-2 mb-5 text-light">
                     Our vision is to be a self-sustaining society managed under transparent, accountable and visionary
@@ -40,7 +42,7 @@ export default function Home() {
                   <div></div>
                 </div>
               </div>
-              <div className="col-6">
+              <div className="col-12 col-md-6">
                 <div className="p-4 py-5">
                   <div className="fw-semibold fs-2 mb-5">
                     We provide self-sustaining society managed under transparent, accountability and visionary
@@ -59,7 +61,7 @@ export default function Home() {
         <section className="services" id="services">
           <div className="container-xl py-5">
             <div className="row py-5 align-items-end">
-              <div className="col-6 mb-5">
+              <div className="col-12 col-md-6 mb-5">
                 <div className="">
                   <div style={{ fontSize: 14 }} className="mb-2 fw-medium">
                     OUR SERVICES
@@ -67,7 +69,7 @@ export default function Home() {
                   <div className="display-3 fw-semibold">Explore the Range of Harmonycoop&apos;s Service</div>
                 </div>
               </div>
-              <div className="col-6 mb-5">
+              <div className="col-12 col-md-6 mb-5">
                 <div className="text-end text-secondary">
                   We offer a variety of financial products, including savings accounts, personal loans, and business
                   loans, all designed to meet the unique needs of our members.
@@ -138,7 +140,7 @@ export default function Home() {
         <section className="services mb-5" id="about" style={{ background: "#f1f1f1" }}>
           <div className="container-xl">
             <div className="row">
-              <div className="col-6">
+              <div className="col-12 col-md-6">
                 <div className="py-5 my-5">
                   <div style={{ fontSize: 14 }} className="mb-2 fw-medium">
                     ABOUT US
@@ -161,7 +163,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <div className="col-6 overflow-hidden">
+              <div className="col-12 col-md-6 overflow-hidden">
                 <div className="d-flex align-items-end justify-content-end h-100">
                   <Image
                     width={600}
@@ -181,7 +183,7 @@ export default function Home() {
       <footer className="footer py-5">
         <div className="container-xl py-5">
           <div className="row">
-            <div className="col-12 col-md-4">
+            <div className="col-12 col-md-4 mb-5">
               <Link href="#" className="logo fs-2 fw-semibold text-light d-block mb-4">
                 Harmony<span>coop</span>
               </Link>
@@ -189,7 +191,7 @@ export default function Home() {
                 We provide self-sustaining society managed under transparent, accountability and visionary leadership.
               </div>
             </div>
-            <div className="col-12 col-md-4 col-lg-2">
+            <div className="col-6 col-md-4 col-lg-2 mb-5">
               <div className="mb-4 fw-medium fs-5 text-white">Company</div>
               <ul className="p-0 m-0 footer-list">
                 <FooterListItem title="Home" link="#" />
@@ -198,7 +200,7 @@ export default function Home() {
                 <FooterListItem title="Contact" link="#contact" />
               </ul>
             </div>
-            <div className="col-12 col-md-4 col-lg-2">
+            <div className="col-6 col-md-4 col-lg-2 mb-5">
               <div className="mb-4 fw-medium fs-5 text-white">Services</div>
               <ul className="p-0 m-0 footer-list">
                 <FooterListItem title="Business Loan" link="" />

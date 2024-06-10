@@ -62,7 +62,7 @@ class RepaymentRepository {
     });
   }
 
-  static getRepayments(query?: QueryProps) {
+  static getRepayments(query?: Partial<QueryProps>) {
     const dF = "YYYY-MM-DD";
     let repayments = RepaymentRepository.collection?.map((item) => {
       const loan = LoanRepository.findById(item.loanId) as LoanProps;

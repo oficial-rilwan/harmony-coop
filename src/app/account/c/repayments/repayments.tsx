@@ -8,6 +8,7 @@ import { currencyFormat } from "@/utils";
 import moment from "moment";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React from "react";
+import { LoanType } from "../loans/page";
 
 const user = UserRepository.user;
 
@@ -15,7 +16,7 @@ const Repayments = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const type = searchParams.get("type") || "";
+  const type = (searchParams.get("type") || "") as LoanType;
   const dateTo = searchParams.get("dateTo") || "";
   const dateFrom = searchParams.get("dateFrom") || "";
 
@@ -23,9 +24,9 @@ const Repayments = () => {
   const [refetch, setRefetch] = React.useState(false);
 
   React.useEffect(() => {
-    const _repayments = RepaymentRepository.getRepayments();
+    const _repayments = RepaymentRepository.getRepayments({ type, dateFrom, dateTo });
     setRepayments(_repayments);
-  }, [refetch]);
+  }, [refetch, type, dateFrom, dateTo]);
 
   return (
     <Layout title="Repayments">
@@ -43,6 +44,7 @@ const Repayments = () => {
                 <option disabled value="">
                   Loan Type
                 </option>
+                <option value="">All</option>
                 {loanTypes().map((item) => (
                   <option value={item} key={item}>
                     {item}
@@ -72,20 +74,20 @@ const Repayments = () => {
             </div>
           </div>
         </div>
-        <div className="border p-3 mb-5">
+        <div className="border p-3 mb-5 overflow-auto">
           <table className="table">
             <thead>
               <tr>
-                <th scope="col" className="fw-semibold">
+                <th scope="col" className="fw-semibold text-nowrap">
                   # Loan ID
                 </th>
-                <th scope="col" className="fw-semibold">
+                <th scope="col" className="fw-semibold text-nowrap">
                   Loan Type
                 </th>
-                <th scope="col" className="fw-semibold">
+                <th scope="col" className="fw-semibold text-nowrap">
                   Repayment Date
                 </th>
-                <th scope="col" className="fw-semibold">
+                <th scope="col" className="fw-semibold text-nowrap">
                   Amount
                 </th>
               </tr>

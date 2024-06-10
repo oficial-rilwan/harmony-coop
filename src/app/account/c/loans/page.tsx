@@ -10,6 +10,9 @@ import { CategoryScale } from "chart.js";
 import { Pie } from "react-chartjs-2";
 import Link from "next/link";
 import { calculateLoanDetails, currencyFormat, interestRates, loanTypes } from "@/utils";
+import UserRepository from "@/repository/userRepository";
+import { useRouter } from "next/navigation";
+import EmptyState from "@/components/empty-state";
 
 Chart.register(CategoryScale);
 
@@ -23,7 +26,10 @@ const initialValues = {
   status: "",
   downPayment: "0",
 };
+const user = UserRepository.user;
+
 const Page = () => {
+  const router = useRouter();
   const loansSectionRef: any = React.useRef();
   const [values, setValues] = React.useState(initialValues);
   const [loans, setLoans] = React.useState<LoanProps[]>([]);
@@ -34,6 +40,8 @@ const Page = () => {
     const _loans = LoanRepository.getLoans();
     setLoans(_loans);
   }, [refetch]);
+
+  if (!user) return router.push("/account/signin");
 
   const chartData = {
     labels: ["Principal", "Interest"],
@@ -214,11 +222,7 @@ const Page = () => {
               ))}
             </tbody>
           </table>
-          {loans.length ? null : (
-            <React.Fragment>
-              <div className="text-center text-secondary p-5">No Data</div>
-            </React.Fragment>
-          )}
+          <EmptyState show={!loans.length} />
         </div>
       </div>
     </Layout>

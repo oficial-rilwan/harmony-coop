@@ -1,10 +1,14 @@
 "use client";
 
+import EmptyState from "@/components/empty-state";
 import Layout from "@/components/layout";
 import RepaymentRepository, { RepaymentProps } from "@/repository/repaymentRepository";
+import UserRepository from "@/repository/userRepository";
 import moment from "moment";
 import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";
+
+const user = UserRepository.user;
 
 const Page = () => {
   const router = useRouter();
@@ -20,6 +24,8 @@ const Page = () => {
     const _repayments = RepaymentRepository.getRepayments();
     setRepayments(_repayments);
   }, [refetch]);
+
+  if (!user) return router.push("/account/signin");
 
   return (
     <Layout title="Repayments">
@@ -97,11 +103,7 @@ const Page = () => {
               ))}
             </tbody>
           </table>
-          {repayments.length ? null : (
-            <React.Fragment>
-              <div className="text-center text-secondary p-5">No Data</div>
-            </React.Fragment>
-          )}
+          <EmptyState show={!repayments.length} />
         </div>
       </div>
     </Layout>

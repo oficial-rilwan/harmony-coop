@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import React from "react";
 import { IconType } from "react-icons";
 import { GrMoney } from "react-icons/gr";
-import { MdNotificationsNone, MdOutlineDashboard } from "react-icons/md";
+import { MdLogout, MdNotificationsNone, MdOutlineDashboard } from "react-icons/md";
 import { TbPigMoney } from "react-icons/tb";
 
 interface SidebarListItemProps {
@@ -28,26 +28,33 @@ const Layout = ({ children, title }: { children: React.ReactNode; title: string 
             </Link>
           </div>
         </div>
-        <ul className="sidebar-list m-0 p-0">
-          <SidebarListItem
-            title="Dashboard"
-            active={pathname.includes("/c/dashboard")}
-            Icon={MdOutlineDashboard}
-            link="/account/c/dashboard"
-          />
-          <SidebarListItem
-            title="Loans"
-            active={pathname.includes("/c/loans")}
-            Icon={GrMoney}
-            link="/account/c/loans"
-          />
-          <SidebarListItem
-            title="Repayments"
-            active={pathname.includes("/c/repayments")}
-            Icon={TbPigMoney}
-            link="/account/c/repayments"
-          />
-        </ul>
+        <div className="d-flex flex-column justify-content-between" style={{ height: "calc(100% - 150px)" }}>
+          <ul className="sidebar-list m-0 p-0">
+            <SidebarListItem
+              title="Dashboard"
+              active={pathname.includes("/c/dashboard")}
+              Icon={MdOutlineDashboard}
+              link="/account/c/dashboard"
+            />
+            <SidebarListItem
+              title="Loans"
+              active={pathname.includes("/c/loans")}
+              Icon={GrMoney}
+              link="/account/c/loans"
+            />
+            <SidebarListItem
+              title="Repayments"
+              active={pathname.includes("/c/repayments")}
+              Icon={TbPigMoney}
+              link="/account/c/repayments"
+            />
+          </ul>
+          <div>
+            <Link href={"/account/signout"} className={`text-decoration-none text-danger fs-sm fw-medium d-block p-3`}>
+              <MdLogout className={`me-3 text-danger`} size={24} /> Sign Out
+            </Link>
+          </div>
+        </div>
       </div>
       <div className="w-100" style={{ height: "100vh", overflowY: "auto" }}>
         <div className="d-flex justify-content-between align-items-center border bottom p-3">

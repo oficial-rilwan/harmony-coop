@@ -1,6 +1,7 @@
 import UserRepository from "./userRepository";
 import LoanRepository, { LoanProps } from "./loanRepository";
 import moment from "moment";
+import _ from "lodash";
 type LoanType = "Personal Loan" | "Auto Loan" | "Student Loan" | "Mortgage Loan";
 
 export interface RepaymentProps {
@@ -92,6 +93,22 @@ class RepaymentRepository {
       });
     }
     return repayments;
+  }
+
+  static monthlyStats() {
+    const loans = [] as { month: string; amount: number; count: number }[];
+    const result = _.groupBy(RepaymentRepository.collection, (item) => {
+      return new Date(item.createdAt).getMonth() + 1;
+    });
+
+    for (let key in result) {
+      const data = {} as { month: string; amount: number; count: number };
+      data.count = result[key].length;
+      data.month = moment(key, "M").format("MMMM");
+      data.amount = result[key].reduce((a, c) => a + c.amount, 0);
+      loans.push(data);
+    }
+    return loans;
   }
 
   static getDataFromStorage() {

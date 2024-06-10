@@ -7,6 +7,7 @@ import moment from "moment";
 import React from "react";
 import RecordPayment from "./components/record-payment";
 import RepaymentRepository, { RepaymentProps } from "@/repository/repaymentRepository";
+import EmptyState from "@/components/empty-state";
 
 const Page = ({ params }: { params: { id: string } }) => {
   const [refetch, setRefetch] = React.useState(false);
@@ -127,11 +128,7 @@ const Page = ({ params }: { params: { id: string } }) => {
               ))}
             </tbody>
           </table>
-          {repayments.length ? null : (
-            <React.Fragment>
-              <div className="text-center text-secondary p-5">No Data</div>
-            </React.Fragment>
-          )}
+          <EmptyState show={!repayments.length} />
         </div>
       </div>
       <RecordPayment

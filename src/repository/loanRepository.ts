@@ -1,6 +1,8 @@
 import { toast } from "react-toastify";
+import _ from "lodash";
 import UserRepository from "./userRepository";
 import RepaymentRepository, { RepaymentProps } from "./repaymentRepository";
+import moment from "moment";
 
 type LoanType = "Personal Loan" | "Auto Loan" | "Student Loan" | "Mortgage Loan";
 
@@ -77,6 +79,38 @@ class LoanRepository {
       return item.userId === UserRepository.user?.id;
     });
     return loans;
+  }
+  static monthlyStats() {
+    const loans = [] as { month: string; amount: number; count: number }[];
+    const result = _.groupBy(LoanRepository.collection, (item) => {
+      return new Date(item.createdAt).getMonth() + 1;
+    });
+
+    for (let key in result) {
+      const data = {} as { month: string; amount: number; count: number };
+      data.count = result[key].length;
+      data.month = moment(key, "M").format("MMMM");
+      data.amount = result[key].reduce((a, c) => a + c.amount, 0);
+      loans.push(data);
+    }
+    return loans;
+  }
+
+  static stats() {
+    let loans = 0;
+    let repayments = 0;
+    let loanApplications = 0;
+    let balance = 0;
+
+    loans = LoanRepository.getLoans().reduce((a, c) => a + c.breakdown?.totalLoanAmount, 0);
+    loanApplications = LoanRepository.getLoans().length;
+    repayments = RepaymentRepository.getRepayments().reduce((a, c) => a + c.amount, 0);
+    return {
+      loans,
+      repayments,
+      loanApplications,
+      balance: repayments - loans,
+    };
   }
 
   static getDataFromStorage() {

@@ -145,7 +145,7 @@ const Page = () => {
                     ))}
                   </div>
                   <div className="bg-light p-3 text-end">
-                    <Link href="/acccount/c/repayments">See all</Link>
+                    <Link href="/account/c/repayments">See all</Link>
                   </div>
                 </div>
               </div>
@@ -171,7 +171,7 @@ const Page = () => {
                     ))}
                   </div>
                   <div className="bg-light p-3 text-end">
-                    <Link href="/acccount/c/loans">See all</Link>
+                    <Link href="/account/c/loans">See all</Link>
                   </div>
                 </div>
               </div>
